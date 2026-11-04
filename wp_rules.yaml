@@ -1,0 +1,7 @@
+rules:
+  - id: wp-unauthenticated-ajax-no-nonce
+    languages: [php]
+    severity: ERROR
+    message: "Missing Nonce/Auth check in unauthenticated AJAX handler!"
+    patterns:
+      - pattern: add_action('wp_ajax_nopriv_$ACTION', '$FUNC');
