@@ -18,9 +18,8 @@ C=Console()
 def scan_path(path):
     root=Path(path).resolve(); parser=PHPParser(str(root)); analyzer=Analyzer(parser); findings=[]
     files=[root] if root.suffix.lower()=='.php' else php_files(root)
-    for f in files:
-        try: findings += analyzer.analyze(f)
-        except Exception as e: C.print(f'[yellow]skip[/] {f}: {e}')
+    try: findings=analyzer.analyze_project(files)
+    except Exception as e: C.print(f'[yellow]scan failed[/]: {e}')
     return findings
 
 def clone_repo(item, base='repos'):

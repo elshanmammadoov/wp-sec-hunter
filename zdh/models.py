@@ -22,6 +22,8 @@ class Finding:
     evidence: Evidence
     repo: Optional[str] = None
     commit: Optional[str] = None
+    function: str = ""
+    entry_points: list = field(default_factory=list)
 
     def to_dict(self):
         d = asdict(self)

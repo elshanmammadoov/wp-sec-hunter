@@ -9,7 +9,10 @@ class PHPParser:
         self.php = "php"
 
     def parse(self, file: str):
-        p = subprocess.run([self.php, str(self.script), str(file)], capture_output=True, text=True, timeout=30)
+        try:
+            p = subprocess.run([self.php, str(self.script), str(file)], capture_output=True, text=True, timeout=30)
+        except (FileNotFoundError, subprocess.TimeoutExpired) as e:
+            return None, str(e)  # analyzer falls back to LOW-confidence regex candidates
         if p.returncode != 0:
             return None, p.stderr.strip()
         try:
